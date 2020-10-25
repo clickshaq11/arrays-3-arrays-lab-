@@ -3,7 +3,7 @@
 #include <time.h>
 
 const int SIZE = 5;
-
+//123
 int getArraySize();
 void countEqualElements(int* array, int size);
 
