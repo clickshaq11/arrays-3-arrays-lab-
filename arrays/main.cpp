@@ -1,9 +1,11 @@
 #include <fstream>
 #include <iostream>
 #include <time.h>
+#include <string>
+#include <stdlib.h>
+#include <sstream>
 
 const int SIZE = 5;
-//123
 int getArraySize();
 void countEqualElements(int* array, int size);
 
@@ -19,14 +21,37 @@ int main() {
 	srand(static_cast<unsigned int>(time(NULL)));
 	for (int i = 0; i < N; i++) {
 		array2[i] = rand() % 2;
-		std::cout << array2[i] << " " ;
+		std::cout << array2[i] << " ";
 	}
 	countEqualElements(array2, N);
 	delete[] array2;
 	//
 	std::ifstream inFile;
-
-	return 0;
+	std::string path = "test.txt";
+	inFile.open(path);
+	if (inFile.is_open()) {
+		std::cout << "success" << "\n";
+	}
+	else {
+		std::cout << "failure" << "\n";
+	}
+	std::string curStr;
+	std::string curStr2;
+	
+	while (!(inFile.eof())) {
+		std::getline(inFile, curStr);
+		int a = atoi(curStr.c_str());
+		int* array3 = new int[a];
+		std::getline(inFile, curStr2);
+		std::istringstream iss(curStr2);
+		for (int i = 0; i < a; i++) {
+			iss >> array3[i];
+			std::cout << array3[i] << " ";
+		}
+		countEqualElements(array3, a);
+		delete[] array3;
+	}
+	inFile.close();
 }
 
 int getArraySize() {
